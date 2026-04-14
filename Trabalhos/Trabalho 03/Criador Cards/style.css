@@ -1,5 +1,21 @@
-h1 {
-    margin: 10px;
+body{
+    background-color: rgb(250, 215, 250);
+}
+
+form .h1 {
+    color: white;
+    text-align: center;
+    margin: 20px;
+}
+
+form {
+    background-color: rgb(109, 109, 248);
+    height: 400px;
+    width: 300px;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-radius: 30px;
 }
 
 .card {
@@ -10,6 +26,7 @@ h1 {
     position: relative;
     padding: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
 }
 
 .card-img {
@@ -22,5 +39,12 @@ label {
     font-size: large;
     font-weight: bold;
     margin-top: 10px;
+    margin: 50px;
 }
 
+button {
+    background-color: rebeccapurple;
+    color: white;
+    border-radius: 10px;
+    margin: 20px;
+}
