@@ -12,16 +12,19 @@
 <body>
 
     <form action="card.php" method="POST">
-        <h1>Criador de Cards Maneiros :D</h1>
+        <h1>Criador de Cards de Estádios</h1>
 
         <label for="">Nome:</label>
-        <input name="nome" type="text" placeholder="Nome...">
+        <input class="form-space" name="nome" type="text" placeholder="Nome...">
+        <br>
+        <label for="">Capacidade:</label>
+        <input class="form-space"  name="capacidade" type="number" placeholder="Capacidade...">
         <br>
         <label for="">Descrição:</label>
-        <input name="desc" type="text" placeholder="Descrição...">
+        <textarea class="form-space"  name="desc" placeholder="Descrição..."></textarea>
         <br>
         <label for="">Imagem:</label>
-        <input name="img" type="text" placeholder="URL link...">
+        <input class="form-space"  name="img" type="text" placeholder="URL link...">
         <br>
         <button>Enviar</button>
     </form>

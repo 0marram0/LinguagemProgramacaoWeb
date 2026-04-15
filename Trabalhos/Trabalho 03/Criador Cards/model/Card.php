@@ -4,12 +4,14 @@ class Card {
 
     //Atributos
     private $nome;
+    private $capacidade;
     private $desc;
     private $imgLink;
 
     //Métodos
-    public function __construct($n, $d, $i){
+    public function __construct($n, $c, $d, $i){
         $this->nome = $n;
+        $this->capacidade = $c;
         $this->desc = $d;
         $this->imgLink = $i;
     }
@@ -23,6 +25,18 @@ class Card {
     public function setNome($nome): self
     {
         $this->nome = $nome;
+
+        return $this;
+    }
+
+    public function getCapacidade()
+    {
+        return $this->capacidade;
+    }
+
+    public function setCapacidade($capacidade): self
+    {
+        $this->capacidade = $capacidade;
 
         return $this;
     }
@@ -50,6 +64,7 @@ class Card {
 
         return $this;
     }
+    
 }
 
 ?>

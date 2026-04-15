@@ -2,15 +2,16 @@
 
 require_once("model/Card.php");
 
-if (isset($_POST["nome"]) && !empty($_POST["nome"]) && isset($_POST["desc"]) && !empty($_POST["desc"]) && isset($_POST["img"]) && !empty($_POST["img"])) {
+if (isset($_POST["nome"]) && !empty($_POST["nome"]) && isset($_POST["capacidade"]) && !empty($_POST["capacidade"]) && isset($_POST["desc"]) && !empty($_POST["desc"]) && isset($_POST["img"]) && !empty($_POST["img"])) {
     
     $nome = $_POST["nome"];
+    $capacidade = $_POST["capacidade"];
     $desc = $_POST["desc"];
     $imgLink = $_POST["img"];
 
-    $card = new Card($nome, $desc, $imgLink);
+    $card = new Card($nome, $capacidade, $desc, $imgLink);
 } else {
-    echo "Preencha todos os campos!";
+    echo "Preencha todos os campos corretamente!";
     exit;
 }
 
@@ -29,12 +30,13 @@ if (isset($_POST["nome"]) && !empty($_POST["nome"]) && isset($_POST["desc"]) && 
 
 <body>
 
-    <h1>Seu Card</h1>
+    <h1>Estádio de Futebol</h1>
 
     <div class="card">
         <img class="card-img" src="<?= $card->getImgLink() ?>" alt="<?= $card->getNome() ?>">
         <h2 class="card-title"><?= $card->getNome() ?></h2>
         <p class="card-desc"><?= $card->getDesc() ?></p>
+        <p class="card-capacidade"><?= $card->getCapacidade() ?> torcedores</p>
     </div>
 </body>
 
