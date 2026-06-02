@@ -12,9 +12,6 @@ $conexao = Conexao::getConexao();
 //Declara aqui a mensagem de erro pra usar em todo código
 $msgErro = "";
 
-//Cria o array pras memórias
-$cards = array();
-
 //Salvar a memória
 if (isset($_POST["nome"])) {
 
