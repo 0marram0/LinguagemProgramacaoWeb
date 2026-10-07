@@ -1,0 +1,472 @@
+/* ==========================================================
+   Gerador de Times
+   Layout: formulário (col-6, esquerda) + escalação (col-6, direita)
+   ========================================================== */
+
+:root {
+    --bg: #f1f4f2;
+    --card: #ffffff;
+    --texto: #1b2a22;
+    --borda: #d3ddd7;
+
+    --verde: #1f7a3d;
+    --verde-escuro: #14572b;
+    --perigo: #c62828;
+
+    --campo: #2f8f46;
+
+    --goleiro: #f6c915;
+    --defesa: #2563eb;
+    --meio: #ffffff;
+    --ataque: #e5393b;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0 1rem 2.5rem;
+    background: var(--bg);
+    color: var(--texto);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.4;
+}
+
+.title {
+    padding: 1.75rem 0 1.25rem;
+    text-align: center;
+}
+
+.title h1 {
+    margin: 0;
+    font-size: 1.9rem;
+    letter-spacing: -0.01em;
+}
+
+
+/* ---------- Grid ---------- */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.col-6 {
+    flex: 1 1 calc(50% - 0.75rem);
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .col-6 {
+        flex-basis: 100%;
+    }
+}
+
+
+/* ---------- Formulário (esquerda) ---------- */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 1.5rem;
+    background: var(--card);
+    border: 1px solid var(--borda);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(20, 40, 30, 0.06),
+        0 10px 24px -14px rgba(20, 40, 30, 0.25);
+}
+
+label {
+    margin-top: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+label:first-child {
+    margin-top: 0;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    font: inherit;
+    color: inherit;
+    background: #fff;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+}
+
+input[type="text"]:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(31, 122, 61, 0.35);
+    outline-offset: 1px;
+    border-color: var(--verde);
+}
+
+
+/* ---------- Botões ---------- */
+
+/* Coluna do formulário: form em cima, botões lado a lado embaixo */
+.col-6:has(> form) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.col-6:has(> form)>form,
+.col-6>.alert {
+    flex: 1 1 100%;
+}
+
+.col-6>.alert {
+    margin-top: 0;
+}
+
+.col-6:has(> form)>button {
+    flex: 1 1 calc(50% - 0.375rem);
+}
+
+/* Base (botão principal: verde preenchido) */
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.1rem;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+    background: var(--verde);
+    border: 1px solid var(--verde);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(20, 40, 30, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, color 0.15s,
+        box-shadow 0.15s, transform 0.08s;
+}
+
+button:hover {
+    background: var(--verde-escuro);
+    border-color: var(--verde-escuro);
+    box-shadow: 0 4px 10px -4px rgba(20, 87, 43, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+button:focus-visible,
+button:has(> a:focus-visible) {
+    outline: 3px solid rgba(31, 122, 61, 0.4);
+    outline-offset: 2px;
+}
+
+/* "Gerar Time" ocupa a largura toda do formulário */
+form button[type="submit"] {
+    margin-top: 0.9rem;
+}
+
+/* Botões que são links (<button><a>): o link preenche o botão inteiro,
+   assim o clique funciona em qualquer ponto e não só em cima do texto */
+button:has(> a) {
+    padding: 0;
+}
+
+button>a {
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.85rem 0.75rem;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* celular pequeno: os botões de baixo ficam um embaixo do outro */
+@media (max-width: 420px) {
+    .col-6:has(> form)>button {
+        flex-basis: 100%;
+    }
+}
+
+button>a:focus-visible {
+    outline: none;
+}
+
+/* Ressortear: secundário (contorno verde) */
+button:has(> a[href*="alterar"]) {
+    color: var(--verde);
+    background: #fff;
+}
+
+button:has(> a[href*="alterar"]):hover {
+    color: var(--verde-escuro);
+    background: #eaf5ee;
+    border-color: var(--verde-escuro);
+    box-shadow: 0 4px 10px -6px rgba(20, 87, 43, 0.5);
+}
+
+/* Excluir: perigo (contorno vermelho, preenche no hover) */
+button:has(> a[href*="remover"]) {
+    color: var(--perigo);
+    background: #fff;
+    border-color: #efb3ae;
+}
+
+button:has(> a[href*="remover"]):hover {
+    color: #fff;
+    background: var(--perigo);
+    border-color: var(--perigo);
+    box-shadow: 0 4px 10px -4px rgba(198, 40, 40, 0.55);
+}
+
+/* Ícones (máscara SVG: herdam a cor do texto) */
+form button[type="submit"]::before,
+button:has(> a[href*="alterar"])>a::before,
+button:has(> a[href*="remover"])>a::before {
+    content: "";
+    flex: none;
+    width: 1.15em;
+    height: 1.15em;
+    background: currentColor;
+    -webkit-mask: var(--icone) center / contain no-repeat;
+    mask: var(--icone) center / contain no-repeat;
+}
+
+form button[type="submit"] {
+    --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M8 12h8M12 8v8'/%3E%3C/svg%3E");
+}
+
+button:has(> a[href*="alterar"])>a {
+    --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a9 9 0 1 1-9-9c2.5 0 4.9 1 6.7 2.7L21 8'/%3E%3Cpath d='M21 3v5h-5'/%3E%3C/svg%3E");
+}
+
+button:has(> a[href*="remover"])>a {
+    --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 6h18'/%3E%3Cpath d='M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'/%3E%3Cpath d='M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2'/%3E%3Cpath d='M10 11v6M14 11v6'/%3E%3C/svg%3E");
+}
+
+
+/* ---------- Alertas ---------- */
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+}
+
+.alert-danger {
+    color: #8a1c14;
+    background: #fdecea;
+    border: 1px solid #f5c2bd;
+}
+
+.mt-3 {
+    margin-top: 1rem;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+
+/* ---------- Escalação (direita) ---------- */
+
+.escalacao {
+    max-width: 620px;
+    margin: 0 auto;
+}
+
+.escalacao-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.escalacao-topo h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    overflow-wrap: anywhere;
+}
+
+.formacao {
+    flex: none;
+    padding: 0.2rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--verde);
+    border-radius: 999px;
+}
+
+/* Campo: proporção fixa 5:6, atacantes em cima e goleiro embaixo */
+.campo {
+    position: relative;
+    container-type: inline-size;
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: 5 / 6;
+    padding: 3%;
+    overflow: hidden;
+    border-radius: 14px;
+    background-color: var(--campo);
+    /* faixas do gramado */
+    background-image: repeating-linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.05) 0 8.333%,
+            transparent 8.333% 16.666%);
+    box-shadow: 0 10px 24px -14px rgba(20, 40, 30, 0.45);
+}
+
+/* Marcações do campo (linhas, círculo central, grandes e pequenas áreas) */
+.campo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 500 600' fill='none' stroke='white' stroke-opacity='.55' stroke-width='3'%3E%3Crect x='18' y='18' width='464' height='564'/%3E%3Cpath d='M18 300H482'/%3E%3Ccircle cx='250' cy='300' r='56'/%3E%3Ccircle cx='250' cy='300' r='4' fill='white' fill-opacity='.55' stroke='none'/%3E%3Crect x='140' y='18' width='220' height='96'/%3E%3Crect x='195' y='18' width='110' height='38'/%3E%3Cpath d='M210 114A48 48 0 0 0 290 114'/%3E%3Crect x='140' y='486' width='220' height='96'/%3E%3Crect x='195' y='544' width='110' height='38'/%3E%3Cpath d='M210 486A48 48 0 0 1 290 486'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+.campo-vazio {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.campo-vazio p {
+    position: relative;
+    max-width: 22ch;
+    margin: 0;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    color: #fff;
+    background: rgba(10, 30, 18, 0.55);
+    border-radius: 8px;
+}
+
+/* Linha de jogadores (um "andar" da formação).
+   - Todas as linhas dividem a altura do campo em partes iguais.
+   - Cada jogador ocupa uma coluna de largura fixa (21% do campo), então as
+     linhas ficam centralizadas e as bolinhas alinhadas entre si
+     (2 e 4 jogadores se alinham, 3 e 5 também), independente do tamanho do nome. */
+.linha {
+    --n: 1;
+    /* quantidade de jogadores na linha */
+    --tk: clamp(30px, 9cqw, 48px);
+    /* diâmetro da bolinha */
+    --fs: clamp(9px, 2.4cqw, 13px);
+    /* fonte do nome */
+
+    position: relative;
+    flex: 1 1 0;
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    column-gap: 0.3rem;
+    align-content: center;
+    width: min(100%, calc(var(--n) * 21%));
+    margin-inline: auto;
+}
+
+.linha:has(> :nth-child(2)) {
+    --n: 2;
+}
+
+.linha:has(> :nth-child(3)) {
+    --n: 3;
+}
+
+.linha:has(> :nth-child(4)) {
+    --n: 4;
+}
+
+.linha:has(> :nth-child(5)) {
+    --n: 5;
+}
+
+.jogador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    min-width: 0;
+    /* altura reservada: bolinha + nome de até 2 linhas (assim todas as bolinhas
+       ficam na mesma altura relativa, mesmo quando o nome quebra) */
+    min-height: calc(var(--tk) + 0.3rem + 2 * 1.2 * var(--fs) + 0.24rem);
+    text-align: center;
+}
+
+/* Bolinha com a sigla da posição (tamanhos acompanham a largura do campo) */
+.camisa {
+    display: grid;
+    place-items: center;
+    width: var(--tk);
+    aspect-ratio: 1;
+    font-size: clamp(9px, 2.5cqw, 12px);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--c-texto, #fff);
+    background: var(--c-fundo, #fff);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.nome-jogador {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    max-width: 100%;
+    /* sem padding vertical: com line-clamp ele deixaria a 3ª linha aparecer.
+       O "respiro" da etiqueta vem do box-shadow. */
+    padding: 0 0.18rem;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+    font-size: var(--fs);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+    background: rgba(10, 30, 18, 0.62);
+    border-radius: 4px;
+    box-shadow: 0 0 0 0.12rem rgba(10, 30, 18, 0.62);
+}
+
+/* Cor por setor */
+.pos-GOL {
+    --c-fundo: var(--goleiro);
+    --c-texto: #3a2e00;
+}
+
+.pos-ZAG,
+.pos-LE,
+.pos-LD {
+    --c-fundo: var(--defesa);
+}
+
+.pos-VOL,
+.pos-MC,
+.pos-MEI {
+    --c-fundo: var(--meio);
+    --c-texto: var(--verde-escuro);
+}
+
+.pos-PE,
+.pos-ATA,
+.pos-PD {
+    --c-fundo: var(--ataque);
+}
